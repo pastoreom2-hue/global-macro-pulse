@@ -417,6 +417,96 @@
       padding: .06em .1em 0 0;
       color: var(--accent);
     }
+    .daily-sum {
+      margin-top: 1.35rem;
+      max-width: 42rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .daily-sum-kicker {
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .daily-sum ol {
+      margin: .65rem 0 0;
+      padding-left: 0;
+      list-style: none;
+      counter-reset: daily-sum;
+    }
+    .daily-sum li {
+      counter-increment: daily-sum;
+      display: grid;
+      grid-template-columns: 1.6rem 1fr;
+      gap: .55rem;
+      margin-top: .65rem;
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .daily-sum li::before {
+      content: counter(daily-sum) ".";
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--accent);
+    }
+    .daily-byline {
+      margin-top: .85rem;
+      max-width: 42rem;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.55;
+      color: var(--muted);
+    }
+    .gemini-desk {
+      margin-top: 1rem;
+      max-width: 42rem;
+      padding-top: .85rem;
+      border-top: 1px solid var(--line);
+    }
+    .gemini-lead {
+      margin-top: .35rem;
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--copy);
+    }
+    .gemini-row {
+      margin-top: .65rem;
+      display: flex;
+      gap: .5rem;
+    }
+    .gemini-row input {
+      min-height: 40px;
+      min-width: 0;
+      flex: 1;
+      border: 1px solid var(--line);
+      background: transparent;
+      padding: 0 .7rem;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--text);
+    }
+    .gemini-row button {
+      min-height: 40px;
+      padding: 0 .8rem;
+      background: var(--accent);
+      color: #fff8f0;
+      font-family: "IBM Plex Mono", ui-monospace, monospace;
+      font-size: 12px;
+      font-weight: 650;
+    }
+    .gemini-status {
+      margin-top: .4rem;
+      font-size: 13px;
+      color: var(--muted);
+    }
     #bottom-line { scroll-margin-top: 5.75rem; }
     .mast-lanes { display: none; }
     .mast-lanes span {
@@ -845,6 +935,18 @@
         <p id="daily-kicker" class="daily-kicker">Daily Macro Analysis</p>
         <aside id="daily-lead" class="daily-lead" aria-label="Tomorrow's decisive macro"></aside>
         <p id="daily-macro" class="daily-macro">The economy is not running on one switch. Politics is pricing war-risk and export rules at the same time: Mideast news still puts a premium on oil, freight, and gold, while chip-export controls keep splitting the supply chain into scarce product and China-exposed product. Rates sit over all of it — a Fed cut can loosen money for quality firms and memory, but only if the cut is disinflation, not a broken labor market; if oil or grain lifts living costs, that cut is delayed and growth stocks pay first. Resources refuse to move as a bloc: oil and gas follow supply and conflict, copper follows factories and power, rare earths follow policy, grain follows the food bill. On today’s tape that already shows up as a split market — energy, gold, and hard-to-make chips hold up; airlines, travel, leveraged growth, and one-day themes give way. Tomorrow do not buy the index as one idea. Keep cash and gold if conflict or oil is leading; add chips, memory, or materials only after a pullback and only in the lane that actually printed; do not stack DRAM with Micron, and do not treat China talk, copper, or an AI headline as the same trade.</p>
+        <aside id="daily-sum" class="daily-sum" aria-label="Daily analysis summary"></aside>
+        <p id="daily-byline" class="daily-byline"></p>
+        <aside id="gemini-desk" class="gemini-desk">
+          <p id="gemini-kicker" class="daily-sum-kicker">Gemini desk</p>
+          <p id="gemini-lead" class="gemini-lead">Paste a Gemini API key to let a live model write this page. The key stays on this computer.</p>
+          <form id="gemini-form" class="gemini-row">
+            <label class="sr-only" for="gemini-key">Gemini API key</label>
+            <input id="gemini-key" type="password" autocomplete="off" spellcheck="false" placeholder="Gemini API key" />
+            <button id="gemini-go" type="submit">Write with Gemini</button>
+          </form>
+          <p id="gemini-status" class="gemini-status"></p>
+        </aside>
       </div>
     </section>
 
@@ -3317,6 +3419,17 @@
         dailyLeadWhy: "War risk is already in the price. It holds oil up and delays a Fed cut. Rates, chips, China, and AI sit behind that.",
         dailyLeadDo: "Use the Mideast case for tomorrow’s buy and sell. Do not use Rates while oil is still leading.",
         dailyLeadOpen: "See tomorrow’s buy and sell →",
+        dailySumKicker: "In short",
+        dailyByline: "Written by the desk chief — an AI that uses a 20-year stock specialist’s rules. It reads the live tape, then writes. Study guide only.",
+        dailyBylineGemini: "Written by Gemini, prompted as a 20-year stock specialist. It read today’s tape, then wrote. Study guide only.",
+        geminiKicker: "Gemini desk",
+        geminiLead: "This is the Gemini-style writer. Paste a Gemini API key from Google AI Studio. The key stays on this computer. It is not uploaded with the saved files.",
+        geminiPh: "Gemini API key",
+        geminiGo: "Write with Gemini",
+        geminiWait: "Gemini is reading the tape…",
+        geminiOk: "Gemini rewrote Daily Analysis from the live tape.",
+        geminiNeed: "Add a Gemini API key first.",
+        geminiFail: "Gemini did not answer. The rule desk is still in place.",
         dailyMacro: "The economy is not running on one switch. Politics is pricing war-risk and export rules at the same time: Mideast news still puts a premium on oil, freight, and gold, while chip-export controls keep splitting the supply chain into scarce product and China-exposed product. Rates sit over all of it — a Fed cut can loosen money for quality firms and memory, but only if the cut is disinflation, not a broken labor market; if oil or grain lifts living costs, that cut is delayed and growth stocks pay first. Resources refuse to move as a bloc: oil and gas follow supply and conflict, copper follows factories and power, rare earths follow policy, grain follows the food bill. On today’s tape that already shows up as a split market — energy, gold, and hard-to-make chips hold up; airlines, travel, leveraged growth, and one-day themes give way. Tomorrow do not buy the index as one idea. Keep cash and gold if conflict or oil is leading; add chips, memory, or materials only after a pullback and only in the lane that actually printed; do not stack DRAM with Micron, and do not treat China talk, copper, or an AI headline as the same trade.",
         askKicker: "Another case",
         askTitle: "If the world is a different story",
@@ -3538,6 +3651,17 @@
         dailyLeadWhy: "전쟁 위험이 이미 가격에 들어와 있습니다. 기름을 받치고 금리 인하를 미룹니다. 금리·반도체·중국·AI는 그 뒤입니다.",
         dailyLeadDo: "내일 매수·매도는 Mideast를 쓰세요. 기름이 앞장서는 동안 Rates를 쓰지 마세요.",
         dailyLeadOpen: "내일 매수·매도 보기 →",
+        dailySumKicker: "한 줄로",
+        dailyByline: "데스크 수석이 씁니다. 주식 20년 전문가가 쓰는 규칙으로 테이프를 읽고 글을 씁니다. 이 방에 사람이 앉아 있는 것은 아닙니다. 공부용입니다.",
+        dailyBylineGemini: "제미나이가 씁니다. 주식 20년 전문가처럼 오늘 테이프를 읽고 글을 썼습니다. 공부용입니다.",
+        geminiKicker: "제미나이 데스크",
+        geminiLead: "제미나이처럼 모델이 글을 쓰게 하려면 Google AI Studio에서 받은 키를 넣으세요. 키는 이 컴퓨터에만 남습니다. 저장한 파일에는 올라가지 않습니다.",
+        geminiPh: "제미나이 API 키",
+        geminiGo: "제미나이로 쓰기",
+        geminiWait: "제미나이가 테이프를 읽는 중…",
+        geminiOk: "제미나이가 오늘 테이프로 Daily Analysis를 다시 썼습니다.",
+        geminiNeed: "먼저 제미나이 키를 넣으세요.",
+        geminiFail: "제미나이가 답을 못 했습니다. 규칙 데스크 글이 그대로입니다.",
         dailyMacro: "경제는 스위치 하나가 아닙니다. 정치는 전쟁 위험과 수출 규칙을 동시에 가격에 넣고 있습니다. 중동 뉴스는 기름·운임·금에 프리미엄을 붙이고, 반도체 수출 규제는 귀한 제품과 중국 매출 제품을 갈라 놓습니다. 그 위에 금리가 있습니다. 연준이 이자를 내리면 알짜 기업과 메모리에 숨이 트일 수 있지만, 물가가 식어서인지 일자리가 무너져서인지가 갈립니다. 기름이나 곡물이 생활비를 올리면 인하는 미뤄지고 성장주가 먼저 맞습니다. 자원은 한 덩어리로 움직이지 않습니다. 기름과 가스는 공급과 갈등, 구리는 공장과 전력, 희토류는 정책, 곡물은 밥값을 따릅니다. 오늘 테이프에도 그 갈림이 이미 보입니다. 에너지·금·만들기 어려운 칩은 버티고, 항공·여행·레버리지 성장과 하루짜리 테마는 물러납니다. 내일은 지수를 한 이야기로 사지 마세요. 갈등이나 기름이 앞장서면 현금과 금을 두고, 반도체·메모리·소재는 내려온 자리에서, 실제로 숫자가 나온 칸만 보세요. DRAM과 마이크론을 같은 날 겹치지 말고, 중국 발언과 구리와 AI 헤드라인을 한 거래로 묶지 마세요.",
         askKicker: "다른 경우",
         askTitle: "세상이 다른 이야기라면",
@@ -3793,6 +3917,7 @@
       portfolio: loadMyBook(),
       recent: JSON.parse(localStorage.getItem("gmp-recent") || "[]"),
       lang: localStorage.getItem("gmp-lang") === "ko" ? "ko" : "en",
+      deskLead: null,
     };
 
     const REFRESH_MS = 30 * 60 * 1000;
@@ -3869,14 +3994,263 @@
       return JSON.parse(JSON.stringify(obj));
     }
 
-    const DECISIVE_CHIP = "중동 전쟁 확전";
+    const DESK_LENSES = [
+      {
+        id: "mideast",
+        chip: "중동 전쟁 확전",
+        re: /mideast|middle east|iran|israel|gaza|hormuz|red sea|hezbollah|houthi|strait|war risk|escalat|중동|이란|이스라엘|호르무즈/i,
+        name: { en: "Mideast · oil", ko: "중동 · 기름" },
+        why: {
+          en: "War risk is already in the price. It holds oil up and delays a Fed cut.",
+          ko: "전쟁 위험이 이미 가격에 들어와 있습니다. 기름을 받치고 금리 인하를 미룹니다.",
+        },
+        so: {
+          en: "Use the Mideast case for tomorrow’s buy and sell. Do not use Rates while oil is still leading.",
+          ko: "내일 매수·매도는 Mideast를 쓰세요. 기름이 앞장서는 동안 Rates를 쓰지 마세요.",
+        },
+        split: {
+          en: "Energy, gold, and hard-to-make chips hold. Airlines, travel, and leveraged growth give way.",
+          ko: "에너지·금·만들기 어려운 칩은 버티고, 항공·여행·레버리지 성장은 물러납니다.",
+        },
+        tomorrow: {
+          en: "Keep cash and gold. Do not buy a new stock on the headline day.",
+          ko: "현금과 금을 두세요. 뉴스 나온 날 새 주식을 사지 마세요.",
+        },
+      },
+      {
+        id: "oil",
+        chip: "국제 유가 급등",
+        re: /\boil\b|brent|wti|opec|crude|gasoline|고유가|유가/i,
+        name: { en: "Oil", ko: "기름" },
+        why: {
+          en: "A supply-driven barrel is a tax on importers. It delays a cut and hits travel first.",
+          ko: "공급 때문에 오르는 기름은 수입국 세금입니다. 금리 인하를 미루고 여행을 먼저 칩니다.",
+        },
+        so: {
+          en: "Use the Oil case. Do not mix it with copper or grain.",
+          ko: "Oil을 쓰세요. 구리나 곡물과 섞지 마세요.",
+        },
+        split: {
+          en: "Energy and gold hold. Airlines, chemicals, and discretionary names give way.",
+          ko: "에너지와 금은 버티고, 항공·화학·재량소비는 물러납니다.",
+        },
+        tomorrow: {
+          en: "Do not chase a one-day spike. Buy a little of the producers only on a pullback.",
+          ko: "하루 급등은 쫓지 마세요. 생산 회사는 내려온 자리에서만 조금.",
+        },
+      },
+      {
+        id: "rates",
+        chip: "미국 기준금리 인하",
+        re: /\bfed\b|rate cut|fomc|treasury|yield|powell|inflation|기준금리|연준|금리 인하/i,
+        name: { en: "Rates", ko: "금리" },
+        why: {
+          en: "The tape is pricing the price of money. A cut helps only if inflation is cooling, not if jobs are breaking.",
+          ko: "테이프는 돈의 값을 가격에 넣고 있습니다. 인하는 물가가 식어서일 때만 돕습니다. 일자리가 무너져서면 아닙니다.",
+        },
+        so: {
+          en: "Use the Rates case. Do not chase tomorrow’s jump.",
+          ko: "Rates를 쓰세요. 내일 급등은 쫓지 마세요.",
+        },
+        split: {
+          en: "Quality firms and chips can be helped. Indebted growth is the first to cut.",
+          ko: "알짜 기업과 칩은 도움이 될 수 있습니다. 빚이 많은 성장주가 먼저 줄입니다.",
+        },
+        tomorrow: {
+          en: "Ask why they cut first. Add a little only on a pullback.",
+          ko: "왜 내리는지를 먼저 보세요. 내려온 자리에서만 조금 넣으세요.",
+        },
+      },
+      {
+        id: "chips",
+        chip: "반도체 수출 규제 강화",
+        re: /export control|chip ban|semiconductor|hbm|foundry|tsmc|nvidia|수출 규제|반도체/i,
+        name: { en: "Chips", ko: "반도체" },
+        why: {
+          en: "Export rules split scarce chips from China-exposed product. The path matters more than the index.",
+          ko: "수출 규칙은 귀한 칩과 중국 매출 제품을 갈라 놓습니다. 지수보다 길이 먼저입니다.",
+        },
+        so: {
+          en: "Use the Chips case. Do not buy the whole chip ETF as one idea.",
+          ko: "Chips를 쓰세요. 반도체 ETF 전체를 한 이야기로 사지 마세요.",
+        },
+        split: {
+          en: "Non-China foundry and HBM hold. China-revenue legacy names get the multiple cut.",
+          ko: "비중국 파운드리와 HBM은 버티고, 중국 매출이 큰 레거시는 배수가 깎입니다.",
+        },
+        tomorrow: {
+          en: "Split the book by China sales. Do not add every chip name the same day.",
+          ko: "중국 매출로 나누세요. 같은 날 칩을 다 사지 마세요.",
+        },
+      },
+      {
+        id: "china",
+        chip: "중국 대규모 경기 부양",
+        re: /china stimulus|beijing|pboc|yuan|property china|중국|부양|인민은행/i,
+        name: { en: "China", ko: "중국" },
+        why: {
+          en: "The first question is not the size of the package. It is whether the money goes to factories or to housing stock.",
+          ko: "첫 질문은 금액이 아닙니다. 돈이 공장으로 가는지, 집 재고로 가는지입니다.",
+        },
+        so: {
+          en: "Use the China case. Size small until loans and home sales print.",
+          ko: "China를 쓰세요. 대출과 주택 판매가 나오기 전에는 작게.",
+        },
+        split: {
+          en: "Copper and Korean materials can move first. A housing-only bounce is short.",
+          ko: "구리와 한국 소재가 먼저 움직일 수 있습니다. 집만의 반등은 짧습니다.",
+        },
+        tomorrow: {
+          en: "Do not buy the China 3x as a first ticket. Wait for the credit number.",
+          ko: "중국 3배를 첫 표로 사지 마세요. 신용 숫자를 기다리세요.",
+        },
+      },
+      {
+        id: "ai",
+        chip: "AI 투자 열풍 지속",
+        re: /\bai\b|datacenter|data center|capex|gpu|openai|인공지능|데이터센터/i,
+        name: { en: "AI", ko: "AI" },
+        why: {
+          en: "The cycle holds only if the large firms keep building. One crowded name is not the whole tape.",
+          ko: "큰 회사들이 설비를 줄이지 않을 때만 사이클이 남습니다. 붐빈 한 이름이 테이프 전체가 아닙니다.",
+        },
+        so: {
+          en: "Use the AI case. Do not stack DRAM with Micron the same day.",
+          ko: "AI를 쓰세요. 같은 날 DRAM과 마이크론을 겹치지 마세요.",
+        },
+        split: {
+          en: "Power, packaging, and HBM can still pay. Theme names with no earnings do not.",
+          ko: "전력·패키징·HBM은 아직 돈이 될 수 있습니다. 실적 없는 테마는 아닙니다.",
+        },
+        tomorrow: {
+          en: "Do not chase the crowded print. Add only after a pullback, and split the exposure.",
+          ko: "붐빈 숫자는 쫓지 마세요. 내려온 뒤에서만, 그리고 나눠서.",
+        },
+      },
+      {
+        id: "re",
+        chip: "희토류 수출 통제",
+        re: /rare earth|magnet|lithium|export ban mineral|희토류|리튬/i,
+        name: { en: "Rare earths", ko: "희토류" },
+        why: {
+          en: "This is a mineral and policy story, not an oil story. Motors and magnets move before the index.",
+          ko: "기름 이야기가 아니라 광물과 정책 이야기입니다. 모터와 자석이 지수보다 먼저입니다.",
+        },
+        so: {
+          en: "Use the Rare earths case. Do not mix it with an oil hedge.",
+          ko: "Rare earths를 쓰세요. 기름 헤지와 섞지 마세요.",
+        },
+        split: {
+          en: "EV and wind materials can jump. The broad index often does not.",
+          ko: "전기차·풍력 소재는 튈 수 있습니다. 넓은 지수는 아닌 경우가 많습니다.",
+        },
+        tomorrow: {
+          en: "Do not buy a theme ticker on the ban headline. Read inventories first.",
+          ko: "금지 헤드라인으로 테마를 사지 마세요. 재고를 먼저 보세요.",
+        },
+      },
+      {
+        id: "copper",
+        chip: "구리·곡물 공급",
+        re: /copper|grain|wheat|corn|soy|공장|구리|곡물|밀/i,
+        name: { en: "Copper · grain", ko: "구리 · 곡물" },
+        why: {
+          en: "Copper is factories. Grain is the food bill. They look like one commodities story. They are not.",
+          ko: "구리는 공장입니다. 곡물은 밥값입니다. 한 원자재 이야기처럼 보이지만 아닙니다.",
+        },
+        so: {
+          en: "Use the Copper · grain case. Follow the one that actually rose.",
+          ko: "Copper · grain을 쓰세요. 실제로 오른 쪽만 따르세요.",
+        },
+        split: {
+          en: "Factory copper can lift materials. Food-grain inflation cuts discretionary names.",
+          ko: "공장 구리는 소재를 올릴 수 있습니다. 밥값 곡물은 재량소비를 깎습니다.",
+        },
+        tomorrow: {
+          en: "Do not buy copper and grain as one trade.",
+          ko: "구리와 곡물을 한 거래로 사지 마세요.",
+        },
+      },
+    ];
+
+    function tapeBlob() {
+      const titles = (state.headlines && state.headlines.length)
+        ? state.headlines
+        : (state.news || []).map((n) => n.title);
+      return titles.filter(Boolean).join(" \n ");
+    }
+
+    function scoreLens(lens, text) {
+      if (!text) return 0;
+      const g = new RegExp(lens.re.source, lens.re.flags.includes("g") ? lens.re.flags : lens.re.flags + "g");
+      const hits = text.match(g);
+      return hits ? hits.length : 0;
+    }
+
+    function pickDeskLead(scores) {
+      const war = scores.mideast || 0;
+      const oil = scores.oil || 0;
+      const rates = scores.rates || 0;
+      const barrel = war + oil;
+      if (barrel >= 1 && barrel >= rates * 0.7) return war >= oil ? "mideast" : "oil";
+      const ranked = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+      return ranked[0] && ranked[0][1] > 0 ? ranked[0][0] : "mideast";
+    }
+
+    function writeDailyDesk() {
+      const text = tapeBlob();
+      const scores = {};
+      DESK_LENSES.forEach((lens) => { scores[lens.id] = scoreLens(lens, text); });
+      const leadId = pickDeskLead(scores);
+      const lead = DESK_LENSES.find((l) => l.id === leadId) || DESK_LENSES[0];
+      const behind = DESK_LENSES
+        .filter((l) => l.id !== lead.id)
+        .sort((a, b) => (scores[b.id] || 0) - (scores[a.id] || 0))
+        .slice(0, 3);
+      const hits = (state.headlines && state.headlines.length) || (state.news && state.news.length) || 0;
+      const behindEn = behind.map((l) => l.name.en).join(", ");
+      const behindKo = behind.map((l) => l.name.ko).join("·");
+      state.deskLead = {
+        chip: lead.chip,
+        id: lead.id,
+        hits,
+        name: lead.name,
+        why: lead.why,
+        so: lead.so,
+        body: {
+          en: `The economy is not running on one switch. A 20-year desk does not average every headline. It names the price that is already working, then asks what that price blocks. Today that is ${lead.name.en}. ${lead.why.en} ${behindEn} sit behind that. Resources still refuse to move as a bloc: oil and gas follow supply and conflict, copper follows factories and power, rare earths follow policy, grain follows the food bill. On today’s tape that already shows up as a split: ${lead.split.en} Tomorrow do not buy the index as one idea. ${lead.tomorrow.en} Do not stack DRAM with Micron, and do not treat China talk, copper, or an AI headline as the same trade.`,
+          ko: `경제는 스위치 하나가 아닙니다. 20년 데스크는 헤드라인을 평균 내지 않습니다. 이미 움직이는 가격을 먼저 찍고, 그 가격이 무엇을 막는지 봅니다. 오늘은 ${lead.name.ko}입니다. ${lead.why.ko} ${behindKo}는 그 뒤입니다. 자원은 한 덩어리로 움직이지 않습니다. 기름과 가스는 공급과 갈등, 구리는 공장과 전력, 희토류는 정책, 곡물은 밥값을 따릅니다. 오늘 테이프에도 그 갈림이 보입니다. ${lead.split.ko} 내일은 지수를 한 이야기로 사지 마세요. ${lead.tomorrow.ko} DRAM과 마이크론을 겹치지 말고, 중국 발언과 구리와 AI 헤드라인을 한 거래로 묶지 마세요.`,
+        },
+        sum: {
+          en: [
+            `Decisive: ${lead.name.en}. ${lead.why.en}`,
+            `${behindEn} sit behind that. ${lead.so.en}`,
+            "Resources are not one trade. Oil follows conflict. Copper follows factories. Rare earths follow policy. Grain follows the food bill.",
+            `The tape is split. ${lead.split.en}`,
+            `Tomorrow: do not buy the index as one idea. ${lead.tomorrow.en} Do not stack DRAM with Micron. Do not mix China talk, copper, and an AI headline.`,
+          ],
+          ko: [
+            `결정: ${lead.name.ko}. ${lead.why.ko}`,
+            `${behindKo}는 그 뒤입니다. ${lead.so.ko}`,
+            "자원은 한 거래가 아닙니다. 기름은 갈등, 구리는 공장, 희토류는 정책, 곡물은 밥값을 따릅니다.",
+            `테이프는 갈립니다. ${lead.split.ko}`,
+            `내일: 지수를 한 이야기로 사지 마세요. ${lead.tomorrow.ko} DRAM과 마이크론을 겹치지 말고, 중국·구리·AI를 한 거래로 묶지 마세요.`,
+          ],
+        },
+      };
+    }
+
+    function decisiveChip() {
+      return (state.deskLead && state.deskLead.chip) || "중동 전쟁 확전";
+    }
 
     function revealTomorrowOrder() {
+      const chip = decisiveChip();
       const input = $("search-input");
-      if (input) input.value = DECISIVE_CHIP;
-      const onLead = !state.query || state.query === DECISIVE_CHIP;
+      if (input) input.value = chip;
+      const onLead = !state.query || state.query === chip;
       if (!(onLead && (state.phase === "done" || state.phase === "run"))) {
-        startBriefing(DECISIVE_CHIP);
+        startBriefing(chip);
       } else {
         state.view = "overview";
         renderNav();
@@ -3886,16 +4260,120 @@
       if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
+    function renderDailyDesk() {
+      if (!state.deskLead) writeDailyDesk();
+      const lead = state.deskLead;
+      const lang = isKo() ? "ko" : "en";
+      const box = $("daily-lead");
+      if (box) {
+        setHtml(box, `
+          <p class="daily-lead-kicker">${u("dailyLeadKicker")}</p>
+          <p class="daily-lead-name">${esc(lead.name[lang])}</p>
+          <p class="daily-lead-why">${esc(lead.why[lang])}</p>
+          <p class="daily-lead-do">${esc(lead.so[lang])}</p>
+          <button type="button" class="daily-lead-open" data-daily-order>${u("dailyLeadOpen")}</button>
+        `);
+      }
+      setText($("daily-macro"), lead.body[lang]);
+      const sum = $("daily-sum");
+      if (sum) {
+        setHtml(sum, `
+          <p class="daily-sum-kicker">${u("dailySumKicker")}</p>
+          <ol start="1">${lead.sum[lang].map((line) => `<li>${esc(line)}</li>`).join("")}</ol>
+        `);
+      }
+      setText($("daily-byline"), lead.source === "gemini" ? u("dailyBylineGemini") : u("dailyByline"));
+    }
+
+    function geminiKey() {
+      return (localStorage.getItem("gmp-gemini-key") || "").trim();
+    }
+
+    function applyGeminiPack(raw) {
+      const lens = DESK_LENSES.find((l) => l.chip === raw.chip)
+        || DESK_LENSES.find((l) => l.id === raw.id)
+        || DESK_LENSES[0];
+      const sumEn = Array.isArray(raw.sumEn) ? raw.sumEn.map(String).filter(Boolean).slice(0, 5) : [];
+      const sumKo = Array.isArray(raw.sumKo) ? raw.sumKo.map(String).filter(Boolean).slice(0, 5) : [];
+      while (sumEn.length < 5) sumEn.push(lens.so.en);
+      while (sumKo.length < 5) sumKo.push(lens.so.ko);
+      state.deskLead = {
+        chip: DESK_LENSES.some((l) => l.chip === raw.chip) ? raw.chip : lens.chip,
+        id: lens.id,
+        hits: (state.headlines || []).length,
+        source: "gemini",
+        name: { en: String(raw.nameEn || lens.name.en), ko: String(raw.nameKo || lens.name.ko) },
+        why: { en: String(raw.whyEn || lens.why.en), ko: String(raw.whyKo || lens.why.ko) },
+        so: { en: String(raw.soEn || lens.so.en), ko: String(raw.soKo || lens.so.ko) },
+        body: { en: String(raw.bodyEn || ""), ko: String(raw.bodyKo || "") },
+        sum: { en: sumEn, ko: sumKo },
+      };
+    }
+
+    async function askGeminiDaily() {
+      const key = geminiKey();
+      const status = $("gemini-status");
+      if (!key) {
+        if (status) status.textContent = u("geminiNeed");
+        return false;
+      }
+      if (status) status.textContent = u("geminiWait");
+      const chips = DESK_LENSES.map((l) => `${l.id} = ${l.chip}`).join("; ");
+      const headlines = (state.headlines || []).slice(0, 18).map((t, i) => `${i + 1}. ${t}`).join("\n");
+      const prompt = [
+        "You are a 20-year equity desk chief. Educational study guide only. Not a buy recommendation.",
+        "Read the live headlines. Name ONE decisive macro for tomorrow. Do not average every story.",
+        "A Fed headline is noise if oil or war is already in the price.",
+        "chip must be exactly one of: " + chips,
+        "Write English and Korean. Body: one tight paragraph. Summary: exactly 5 short lines.",
+        "Straightforward. No hype. No 'I think'. Return JSON only with keys:",
+        "chip, nameEn, nameKo, whyEn, whyKo, soEn, soKo, bodyEn, bodyKo, sumEn (array of 5), sumKo (array of 5).",
+        "Today's headlines:\n" + (headlines || "(thin tape — use Mideast/oil as the lead unless another story is clearer)"),
+      ].join("\n");
+      const models = ["gemini-2.0-flash", "gemini-2.5-flash", "gemini-1.5-flash"];
+      let lastErr = "";
+      for (const model of models) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(key)}`;
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              contents: [{ parts: [{ text: prompt }] }],
+              generationConfig: { temperature: 0.35, responseMimeType: "application/json" },
+            }),
+          });
+          if (!res.ok) {
+            lastErr = String(res.status);
+            continue;
+          }
+          const data = await res.json();
+          const text = data && data.candidates && data.candidates[0] && data.candidates[0].content
+            && data.candidates[0].content.parts && data.candidates[0].content.parts[0]
+            && data.candidates[0].content.parts[0].text;
+          if (!text) {
+            lastErr = "empty";
+            continue;
+          }
+          const raw = JSON.parse(String(text).replace(/^```json\s*|\s*```$/g, "").trim());
+          applyGeminiPack(raw);
+          renderDailyDesk();
+          if (status) status.textContent = u("geminiOk");
+          return true;
+        } catch (err) {
+          lastErr = "fail";
+        }
+      }
+      if (status) status.textContent = u("geminiFail") + (lastErr ? ` (${lastErr})` : "");
+      return false;
+    }
+
+    function renderDailySum() {
+      renderDailyDesk();
+    }
+
     function renderDailyLead() {
-      const root = $("daily-lead");
-      if (!root) return;
-      setHtml(root, `
-        <p class="daily-lead-kicker">${u("dailyLeadKicker")}</p>
-        <p class="daily-lead-name">${u("dailyLeadName")}</p>
-        <p class="daily-lead-why">${u("dailyLeadWhy")}</p>
-        <p class="daily-lead-do">${u("dailyLeadDo")}</p>
-        <button type="button" class="daily-lead-open" data-daily-order>${u("dailyLeadOpen")}</button>
-      `);
+      renderDailyDesk();
     }
 
     function moreBtn(kind, remain, label) {
@@ -3923,8 +4401,8 @@
       setText($("mast-kicker"), u("mastKicker"));
       setText($("mast-blurb"), u("mastBlurb"));
       setText($("daily-kicker"), u("dailyKicker"));
-      renderDailyLead();
-      setText($("daily-macro"), u("dailyMacro"));
+      if (!state.deskLead) writeDailyDesk();
+      renderDailyDesk();
       setText($("ask-kicker"), u("askKicker"));
       setText($("ask-lead"), u("askLead"));
       setText($("ask-go"), u("askGo"));
@@ -3949,6 +4427,14 @@
       const overlayCopy = document.querySelector("#refresh-overlay p.mt-2");
       if (overlayKick) overlayKick.textContent = u("refresh");
       if (overlayCopy) overlayCopy.textContent = u("refreshing");
+      setText($("gemini-kicker"), u("geminiKicker"));
+      setText($("gemini-lead"), u("geminiLead"));
+      setText($("gemini-go"), u("geminiGo"));
+      const gKey = $("gemini-key");
+      if (gKey) {
+        gKey.placeholder = u("geminiPh");
+        if (!gKey.value && geminiKey()) gKey.value = geminiKey();
+      }
       applyTheme(document.documentElement.classList.contains("light") ? "light" : "dark");
     }
 
@@ -4701,6 +5187,9 @@
         state.lastUpdated = kstNow();
         state.refreshing = false;
         setRefreshUi(false, { overlay });
+        writeDailyDesk();
+        renderDailyDesk();
+        if (geminiKey()) askGeminiDaily();
         renderLastUpdated();
         renderLiveFeed();
         renderCompanyWire();
@@ -4873,7 +5362,8 @@
     }
 
     function todayBrief() {
-      return MORNING_BRIEFS.find((b) => b.chip === DECISIVE_CHIP) || MORNING_BRIEFS[0];
+      const chip = decisiveChip();
+      return MORNING_BRIEFS.find((b) => b.chip === chip) || MORNING_BRIEFS[0];
     }
 
     function morningSpeakText(b) {
@@ -6096,6 +6586,12 @@
         e.preventDefault();
         addTickers($("ticker-input").value);
         $("ticker-input").value = "";
+      });
+      $("gemini-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const typed = ($("gemini-key").value || "").trim();
+        if (typed) localStorage.setItem("gmp-gemini-key", typed);
+        askGeminiDaily();
       });
       document.addEventListener("visibilitychange", () => {
         const track = $("ticker-track");
